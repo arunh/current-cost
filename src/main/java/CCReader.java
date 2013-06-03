@@ -29,7 +29,7 @@ public class CCReader {
 
     private static final class SerialPortReader implements SerialPortEventListener {
 
-        private final StringBuilder sb = new StringBuilder(2048);
+        private StringBuilder sb = new StringBuilder(2048);
 
         public void serialEvent(SerialPortEvent event) {
             int val = event.getEventValue();
@@ -39,6 +39,7 @@ public class CCReader {
                     sb.append(new String(buffer));
                     if (buffer[buffer.length - 1] == '\n') {
                         final String msg = sb.toString();
+                        sb = new StringBuilder(2048);
                         if (msg.contains("<hist>")) {
                             log.trace("History message read (ignoring): {}");
                         }
