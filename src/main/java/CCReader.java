@@ -38,15 +38,16 @@ public class CCReader {
                     byte buffer[] = serialPort.readBytes(val);
                     sb.append(new String(buffer));
                     if (buffer[buffer.length - 1] == '\n') {
-                        final String msg = sb.toString();
-                        sb = new StringBuilder(2048);
+                        final String tmpBuffer = sb.toString();
+                        final String msg = tmpBuffer.substring(0, tmpBuffer.length());
                         if (msg.contains("<hist>")) {
                             log.trace("History message read (ignoring): {}");
                         }
                         else {
                             log.debug("Real time message reader: {}", msg);
                         }
-
+                        //Reset string buffer for next message
+                        sb = new StringBuilder(2048);
                     }
                 } catch (SerialPortException e) {
                     log.error("Error reading bytes from serial port", e);
