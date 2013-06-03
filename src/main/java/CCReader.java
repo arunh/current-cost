@@ -39,7 +39,7 @@ public class CCReader {
                     sb.append(new String(buffer));
                     if (buffer[buffer.length - 1] == '\n') {
                         final String tmpBuffer = sb.toString();
-                        final String msg = tmpBuffer.substring(0, tmpBuffer.length());
+                        final String msg = tmpBuffer.substring(0, tmpBuffer.length() - 1);
                         if (msg.contains("<hist>")) {
                             log.trace("History message read (ignoring): {}");
                         }
