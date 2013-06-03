@@ -44,7 +44,7 @@ public class CCReader {
                             log.trace("History message read (ignoring): {}");
                         }
                         else {
-                            log.debug("Real time message reader: {}", msg);
+                            log.debug("Real time message read: {}", msg);
                         }
                         //Reset string buffer for next message
                         sb = new StringBuilder(2048);
