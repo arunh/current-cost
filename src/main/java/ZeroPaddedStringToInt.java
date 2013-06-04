@@ -1,10 +1,10 @@
-import com.thoughtworks.xstream.converters.ConverterMatcher;
+import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
-public class ZeroPaddedStringToInt implements ConverterMatcher {
+public class ZeroPaddedStringToInt implements Converter {
 
     public void marshal(Object source, HierarchicalStreamWriter writer,
                         MarshallingContext context) {
