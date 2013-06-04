@@ -11,9 +11,9 @@ public class Main {
         xStream.processAnnotations(RealtimeMessage.class);
 
         SerialReader serialReader = new SerialReader(msgQueue, xStream);
-        RRDWriter rrdWriter = new RRDWriter(msgQueue);
-
         serialReader.start();
+
+        RRDWriter rrdWriter = new RRDWriter(msgQueue);
         rrdWriter.start();
     }
 

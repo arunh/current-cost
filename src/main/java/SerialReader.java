@@ -32,6 +32,9 @@ public class SerialReader {
             int mask = SerialPort.MASK_RXCHAR;
             serialPort.setEventsMask(mask);
             serialPort.addEventListener(new SerialPortReader());
+
+            Thread.currentThread().setName("serialreader");
+
         } catch (SerialPortException e) {
             log.error("Failed to setup serial port", e);
         }
