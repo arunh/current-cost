@@ -4,7 +4,7 @@ import com.thoughtworks.xstream.converters.Converter;
 public class Reading {
 
     @XStreamConverter(ZeroPaddedStringToInt.class)
-    private String watts;
+    private int watts;
 
     @Override
     public String toString() {
