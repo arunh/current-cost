@@ -1,5 +1,12 @@
 public class Reading {
 
-    private int watts;
+    private String watts;
+
+    @Override
+    public String toString() {
+        return "Reading{" +
+                "watts=" + watts +
+                '}';
+    }
 
 }
