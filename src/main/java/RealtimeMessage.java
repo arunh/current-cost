@@ -1,4 +1,5 @@
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
 
 @XStreamAlias("msg")
 public class RealtimeMessage {
@@ -6,7 +7,8 @@ public class RealtimeMessage {
     private String src;
 
     @XStreamAlias("dsb")
-    private String daysSinceBirth;
+    @XStreamConverter(ZeroPaddedStringToInt.class)
+    private int daysSinceBirth;
 
     private String time;
 
