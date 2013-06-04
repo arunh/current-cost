@@ -13,8 +13,7 @@ public class Main {
         SerialReader serialReader = new SerialReader(msgQueue, xStream);
         RRDWriter rrdWriter = new RRDWriter(msgQueue);
 
-//        serialReader.start();
-        msgQueue.put(new RealtimeMessage());
+        serialReader.start();
         rrdWriter.start();
     }
 
