@@ -16,6 +16,6 @@ public class ZeroPaddedStringToInt implements Converter {
     }
 
     public boolean canConvert(Class type) {
-        return type.equals(String.class);
+        return type.equals(Integer.class);
     }
 }
