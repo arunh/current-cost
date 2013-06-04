@@ -21,4 +21,17 @@ public class RealtimeMessage {
 
     private Reading ch1;
 
+    @Override
+    public String toString() {
+        return "RealtimeMessage{" +
+                "src='" + src + '\'' +
+                ", daysSinceBirth='" + daysSinceBirth + '\'' +
+                ", time='" + time + '\'' +
+                ", temperature=" + temperature +
+                ", sensor=" + sensor +
+                ", id=" + id +
+                ", type=" + type +
+                ", ch1=" + ch1 +
+                '}';
+    }
 }

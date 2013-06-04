@@ -1,3 +1,4 @@
+import com.thoughtworks.xstream.XStream;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
@@ -5,13 +6,22 @@ import jssc.SerialPortException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CCReader {
+import java.util.concurrent.LinkedBlockingQueue;
 
-    private static SerialPort serialPort;
-    private static Logger log = LoggerFactory.getLogger(CCReader.class);
+public class SerialReader {
 
-    public static void main(String[] args) {
+    private static Logger log = LoggerFactory.getLogger(SerialReader.class);
+    private SerialPort serialPort;
 
+    private final LinkedBlockingQueue<RealtimeMessage> msgQueue;
+    private final XStream xStream;
+
+    public SerialReader(LinkedBlockingQueue<RealtimeMessage> msgQueue, XStream xStream) {
+        this.msgQueue = msgQueue;
+        this.xStream = xStream;
+    }
+
+    public void start() {
         serialPort = new SerialPort("/dev/ttyUSB0");
         try {
             serialPort.openPort();
@@ -27,7 +37,7 @@ public class CCReader {
         }
     }
 
-    private static final class SerialPortReader implements SerialPortEventListener {
+    private final class SerialPortReader implements SerialPortEventListener {
 
         private StringBuilder sb = new StringBuilder(2048);
 
@@ -41,10 +51,16 @@ public class CCReader {
                         final String tmpBuffer = sb.toString();
                         final String msg = tmpBuffer.substring(0, tmpBuffer.length() - 1);
                         if (msg.contains("<hist>")) {
-                            log.trace("History message read (ignoring): {}");
+                            log.trace("History message was ignored: {}");
                         }
                         else {
-                            log.debug("Real time message read: {}", msg);
+                            RealtimeMessage rtMsg = (RealtimeMessage)xStream.fromXML(msg);
+                            try {
+                                msgQueue.put(rtMsg);
+                            } catch (InterruptedException e) {
+                                Thread.currentThread().interrupt();
+                            }
+                            log.debug("Wrote real time message to queue: {}", rtMsg);
                         }
                         //Reset string buffer for next message
                         sb = new StringBuilder(2048);
