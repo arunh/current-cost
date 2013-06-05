@@ -1,5 +1,7 @@
 package uk.co.arunhorne.currentcost;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.thoughtworks.xstream.XStream;
 import uk.co.arunhorne.currentcost.model.WattsAndTemperature;
 import uk.co.arunhorne.currentcost.producer.MessageProducer;
@@ -11,6 +13,8 @@ import java.util.Properties;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Main {
+
+		private static Logger log = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) throws Exception {
 
@@ -27,6 +31,7 @@ public class Main {
 
         MessageConsumer messageConsumer = new MessageConsumer(msgQueue, ccRRD);
         messageConsumer.start();
+				log.info("Started!");
     }
 
 }
