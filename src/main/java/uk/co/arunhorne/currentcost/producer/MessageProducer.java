@@ -1,3 +1,5 @@
+package uk.co.arunhorne.currentcost.producer;
+
 import com.thoughtworks.xstream.XStream;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
@@ -5,18 +7,20 @@ import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.co.arunhorne.currentcost.model.WattsAndTemperature;
+import uk.co.arunhorne.currentcost.xml.RealtimeMessage;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class SerialReader {
+public class MessageProducer {
 
-    private static Logger log = LoggerFactory.getLogger(SerialReader.class);
+    private static Logger log = LoggerFactory.getLogger(MessageProducer.class);
     private SerialPort serialPort;
 
-    private final LinkedBlockingQueue<RealtimeMessage> msgQueue;
+    private final LinkedBlockingQueue<WattsAndTemperature> msgQueue;
     private final XStream xStream;
 
-    public SerialReader(LinkedBlockingQueue<RealtimeMessage> msgQueue, XStream xStream) {
+    public MessageProducer(LinkedBlockingQueue<WattsAndTemperature> msgQueue, XStream xStream) {
         this.msgQueue = msgQueue;
         this.xStream = xStream;
     }
@@ -54,13 +58,7 @@ public class SerialReader {
                             log.trace("History message was ignored: {}");
                         }
                         else {
-                            RealtimeMessage rtMsg = (RealtimeMessage)xStream.fromXML(msg);
-                            try {
-                                msgQueue.put(rtMsg);
-                            } catch (InterruptedException e) {
-                                Thread.currentThread().interrupt();
-                            }
-                            log.debug("Wrote real time message to queue: {}", rtMsg);
+                            parseAndEnqueue(msg);
                         }
                         //Reset string buffer for next message
                         sb = new StringBuilder(2048);
@@ -69,6 +67,17 @@ public class SerialReader {
                     log.error("Error reading bytes from serial port", e);
                 }
             }
+        }
+
+        private void parseAndEnqueue(String msg) {
+            RealtimeMessage rtMsg = (RealtimeMessage)xStream.fromXML(msg);
+            try {
+                msgQueue.put(new WattsAndTemperature(rtMsg.getCh1().getWatts(), rtMsg.getTemperature()));
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            log.debug("Wrote to queue: {}", rtMsg);
+
         }
     }
 }

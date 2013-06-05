@@ -1,5 +1,8 @@
+package uk.co.arunhorne.currentcost.xml;
+
 import com.thoughtworks.xstream.XStream;
 import org.junit.Test;
+import uk.co.arunhorne.currentcost.xml.RealtimeMessage;
 
 public class XStreamTest {
 

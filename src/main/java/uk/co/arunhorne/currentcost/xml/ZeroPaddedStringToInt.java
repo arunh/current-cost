@@ -1,3 +1,5 @@
+package uk.co.arunhorne.currentcost.xml;
+
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
