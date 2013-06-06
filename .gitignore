@@ -3,6 +3,6 @@
 .DS_Store
 target/
 db/*.rrd
-graphs/
+html/
 log/
 
