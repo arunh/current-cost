@@ -2,7 +2,6 @@
 *.iml
 .DS_Store
 target/
-db/*.rrd
 html/*.png
 log/
 
