@@ -3,11 +3,12 @@
 CC_DIR=/opt/current-cost
 DB_FILE=$CC_DIR/db/current-cost.rrd
 IMG_DIR=$CC_DIR/html
+UPPER_LIMIT=$UPPER_LIMIT
 
 rrdtool graph $IMG_DIR/cc-15minutes.png \
 --start end-15minutes --width 700 --end now --slope-mode \
 --no-legend --vertical-label Watts --lower-limit 0 \
---alt-autoscale-max \
+--upper-limit=$UPPER_LIMIT \
 DEF:Power=$DB_FILE:Power:AVERAGE \
 DEF:PowerMin=$DB_FILE:Power:MIN \
 DEF:PowerMax=$DB_FILE:Power:MAX \
@@ -21,7 +22,7 @@ LINE1:Power#0000FF:"Average"
 rrdtool graph $IMG_DIR/cc-1hour.png \
 --start end-1hour --width 700 --end now --slope-mode \
 --no-legend --vertical-label Watts --lower-limit 0 \
---alt-autoscale-max \
+--upper-limit=$UPPER_LIMIT \
 DEF:Power=$DB_FILE:Power:AVERAGE \
 DEF:PowerMin=$DB_FILE:Power:MIN \
 DEF:PowerMax=$DB_FILE:Power:MAX \
@@ -35,7 +36,7 @@ LINE1:Power#0000FF:"Average"
 rrdtool graph $IMG_DIR/cc-4hours.png \
 --start end-4hours --width 700 --end now --slope-mode \
 --no-legend --vertical-label Watts --lower-limit 0 \
---alt-autoscale-max \
+--upper-limit=$UPPER_LIMIT \
 DEF:Power=$DB_FILE:Power:AVERAGE \
 DEF:PowerMin=$DB_FILE:Power:MIN \
 DEF:PowerMax=$DB_FILE:Power:MAX \
@@ -49,7 +50,7 @@ LINE1:Power#0000FF:"Average"
 rrdtool graph $IMG_DIR/cc-1day.png \
 --start end-1day --width 700 --end now --slope-mode \
 --no-legend --vertical-label Watts --lower-limit 0 \
---alt-autoscale-max \
+--upper-limit=$UPPER_LIMIT \
 DEF:Power=$DB_FILE:Power:AVERAGE \
 DEF:PowerMin=$DB_FILE:Power:MIN \
 DEF:PowerMax=$DB_FILE:Power:MAX \
@@ -63,7 +64,7 @@ LINE1:Power#0000FF:"Average"
 rrdtool graph $IMG_DIR/cc-1week.png \
 --start end-1week --width 700 --end now --slope-mode \
 --no-legend --vertical-label Watts --lower-limit 0 \
---alt-autoscale-max \
+--upper-limit=$UPPER_LIMIT \
 DEF:Power=$DB_FILE:Power:AVERAGE \
 DEF:PowerMin=$DB_FILE:Power:MIN \
 DEF:PowerMax=$DB_FILE:Power:MAX \
@@ -77,7 +78,7 @@ LINE1:Power#0000FF:"Average"
 rrdtool graph $IMG_DIR/cc-1month.png \
 --start end-1month --width 700 --end now --slope-mode \
 --no-legend --vertical-label Watts --lower-limit 0 \
---alt-autoscale-max \
+--upper-limit=$UPPER_LIMIT \
 DEF:Power=$DB_FILE:Power:AVERAGE \
 DEF:PowerMin=$DB_FILE:Power:MIN \
 DEF:PowerMax=$DB_FILE:Power:MAX \
@@ -91,7 +92,7 @@ LINE1:Power#0000FF:"Average"
 rrdtool graph $IMG_DIR/cc-6months.png \
 --start end-6months --width 700 --end now --slope-mode \
 --no-legend --vertical-label Watts --lower-limit 0 \
---alt-autoscale-max \
+--upper-limit=$UPPER_LIMIT \
 DEF:Power=$DB_FILE:Power:AVERAGE \
 DEF:PowerMin=$DB_FILE:Power:MIN \
 DEF:PowerMax=$DB_FILE:Power:MAX \
@@ -105,7 +106,7 @@ LINE1:Power#0000FF:"Average"
 rrdtool graph $IMG_DIR/cc-1year.png \
 --start end-1year --width 700 --end now --slope-mode \
 --no-legend --vertical-label Watts --lower-limit 0 \
---alt-autoscale-max \
+--upper-limit=$UPPER_LIMIT \
 DEF:Power=$DB_FILE:Power:AVERAGE \
 DEF:PowerMin=$DB_FILE:Power:MIN \
 DEF:PowerMax=$DB_FILE:Power:MAX \
