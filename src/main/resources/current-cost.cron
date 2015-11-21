@@ -1,2 +1,2 @@
-*/1 * * * * arunh /opt/current-cost/src/main/resources/generate_graphs.sh >/dev/null 2>&1
+#*/1 * * * * arunh /opt/current-cost/src/main/resources/generate_graphs.sh >/dev/null 2>&1
 

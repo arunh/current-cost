@@ -3,10 +3,10 @@
 CC_DIR=/opt/current-cost
 DB_FILE=$CC_DIR/db/current-cost.rrd
 IMG_DIR=$CC_DIR/html
-NEAR_TERM_UPPER_LIMIT=2500
+NEAR_TERM_UPPER_LIMIT=5000
 
 #Use different limit for 6mth+ due to averaging, allows patterns to be seen
-LONG_TERM_UPPER_LIMIT=1250
+LONG_TERM_UPPER_LIMIT=4000
 
 rrdtool graph $IMG_DIR/cc-15minutes.png \
 --start end-15minutes --width 700 --end now --slope-mode \
